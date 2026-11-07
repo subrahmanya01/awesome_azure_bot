@@ -1,5 +1,4 @@
 using AzureChatService.Agents;
-using Microsoft.Agents.Authentication.Msal;
 using Microsoft.Agents.Builder;
 using Microsoft.Agents.Hosting.AspNetCore;
 using Microsoft.Agents.Storage;
@@ -9,9 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 
 builder.AddAgentApplicationOptions();
-builder.Services.AddSingleton<IStorage, MemoryStorage>();
 builder.AddAgent<EchoAgent>();
-builder.Services.AddDefaultMsalAuth(builder.Configuration);
+builder.Services.AddSingleton<IStorage, MemoryStorage>();
 
 var app = builder.Build();
 
@@ -34,10 +32,6 @@ app.Use(async (context, next) =>
         context.Request.Path,
         context.Response.StatusCode);
 });
-
-// Authentication middleware (only when authentication is registered)
-app.UseAuthentication();
-app.UseAuthorization();
 
 // Simple health check
 app.MapGet("/", () => Results.Ok("Bot is running"));

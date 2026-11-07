@@ -9,3 +9,5 @@ to start
 ```
 agentsplayground -e "https://localhost:7052/api/messages" -c emulator
 ```
+
+Buga414172
