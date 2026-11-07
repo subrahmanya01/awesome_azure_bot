@@ -13,9 +13,15 @@ namespace AzureChatService.Controllers
         }
 
         [HttpPost("echo")]
-        public IActionResult Get(object recieved)
+        public IActionResult PostEcho(object recieved)
         {
             return Ok($"Chat service is running. {JsonSerializer.Serialize(recieved)}");
+        }
+
+        [HttpGet("echo")]
+        public IActionResult GetEcho()
+        {
+            return Ok($"Hey your app is running");
         }
     }
 }
