@@ -43,14 +43,27 @@ app.MapPost(
         HttpResponse response,
         IAgentHttpAdapter adapter,
         IAgent agent,
+        ILogger<Program> logger,
         CancellationToken cancellationToken) =>
     {
-        await adapter.ProcessAsync(
-            request,
-            response,
-            agent,
-            cancellationToken
-        );
+
+        try
+        {
+            logger.LogInformation("Processing incoming request to /api/messages");
+            await adapter.ProcessAsync(
+                request,
+                response,
+                agent,
+                cancellationToken
+            );
+        }
+        catch(Exception ex)
+        {
+            logger.LogError(ex, "Error processing incoming request to /api/messages");
+            response.StatusCode = 500;
+            await response.WriteAsync("Internal Server Error", cancellationToken);
+        }
+        
     }
 );
 
