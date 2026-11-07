@@ -1,0 +1,6 @@
+@AzureChatService_HostAddress = http://localhost:5157
+
+GET {{AzureChatService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
