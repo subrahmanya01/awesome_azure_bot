@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddControllers();
 builder.AddAgentApplicationOptions();
 builder.AddAgent<EchoAgent>();
 builder.Services.AddSingleton<IStorage, MemoryStorage>();
@@ -32,6 +33,8 @@ app.Use(async (context, next) =>
         context.Request.Path,
         context.Response.StatusCode);
 });
+
+app.MapControllers();
 
 // Simple health check
 app.MapGet("/", () => Results.Ok("Bot is running"));
