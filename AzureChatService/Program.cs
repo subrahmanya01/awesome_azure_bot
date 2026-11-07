@@ -1,16 +1,17 @@
+using AzureChatService.Agents;
+using Microsoft.Agents.Authentication.Msal;
 using Microsoft.Agents.Builder;
 using Microsoft.Agents.Hosting.AspNetCore;
 using Microsoft.Agents.Storage;
-using AzureChatService.Agents;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
 
 builder.AddAgentApplicationOptions();
-builder.AddAgent<EchoAgent>();
-
 builder.Services.AddSingleton<IStorage, MemoryStorage>();
+builder.AddAgent<EchoAgent>();
+builder.Services.AddDefaultMsalAuth(builder.Configuration);
 
 var app = builder.Build();
 
