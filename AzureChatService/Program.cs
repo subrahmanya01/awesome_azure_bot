@@ -35,6 +35,26 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
+app.Use(async (context, next) =>
+{
+    var logger = context.RequestServices
+        .GetRequiredService<ILogger<Program>>();
+
+    logger.LogInformation(
+        "REQUEST ENTERED: {Method} {Path}",
+        context.Request.Method,
+        context.Request.Path);
+
+    await next();
+
+    logger.LogInformation(
+        "REQUEST COMPLETED: {StatusCode}",
+        context.Response.StatusCode);
+});
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 // Azure Bot messaging endpoint
 app.MapPost(
     "/api/messages",
