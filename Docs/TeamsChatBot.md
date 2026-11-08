@@ -7,7 +7,7 @@ npm install -g @microsoft/teams-app-test-tool
 to start
 
 ```
-agentsplayground -e "https://localhost:7052/api/messages" -c emulator
+agentsplayground -e "https://localhost:7052/api/messages" -c msteams
 ```
 
 Buga414172
